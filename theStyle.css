@@ -961,6 +961,13 @@ span.price {
   text-shadow: #0088a9;
   text-align: center;
 
+  
+}
+
+.items{
+  max-width: 20vw;
+  height: auto;
+
 }
 
 .product-card {
@@ -1273,6 +1280,12 @@ span.price {
         .orderForm {
             flex: 1;
             max-width: 600px;
+        }
+        .info-p{
+          font-family: 'DM Sans';
+          max-width: 50vw;
+          
+          margin-bottom: 2%;
         }
 
         .cart-summary {
