@@ -59,11 +59,58 @@
     
   </ul>
   </header>
+ 
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+     
+  
+      let currentIndex = 0;
+      const slideImage = document.getElementById("slide-image");
+  
+      function showPrev() {
+        currentIndex = (currentIndex - 1 + imagePaths.length) % imagePaths.length;
+        slideImage.src = imagePaths[currentIndex];
+      }
+  
+      function showNext() {
+        currentIndex = (currentIndex + 1) % imagePaths.length;
+        slideImage.src = imagePaths[currentIndex];
+      }
+  
+      // Attach functions to buttons
+      document.querySelector(".prev").addEventListener("click", showPrev);
+      document.querySelector(".next").addEventListener("click", showNext);
+    });
+  </script>
+  
+  
+  
+  
+  
+
+  
 <body>
+
+ 
   <div class="grid-container">
     <div class="grid-item">
       <div class="star-item">
-        <img src="White Caps Images/White Caps Clothes/White Caps Embroidered Shorts.jpg" alt="W/C Shorts">
+       <section class="slider_container">
+  <div class="slider_wrapper">
+    <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+    <div class="slidershorts">
+      <img class="theslide" src="White Caps Images/White Caps Clothes/shortswhole.jpg" alt="Image 1" />
+      <img class="theslide" src="White Caps Images/White Caps Clothes/shortsfront.jpg" alt="Image 2" />
+      <img class="theslide" src="White Caps Images/White Caps Clothes/shortsbottom.jpg" alt="Image 3" />
+      </div>
+  
+
+    <button class="next" onclick="changeSlide(1)">&#10095;</button>
+  </div>
+</section>
+     
+
+      
         <div class="product-details">
           <center>
             <h1 class="item-paragraph">W/C Embriodered Shorts</h1>
