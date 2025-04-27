@@ -725,7 +725,6 @@ span.price {
 
 .grid-container {
   display: flex;
-  justify-content: space-evenly;
   margin-top: 5%;
   margin-bottom: 5%;
   margin-left: 5%;
@@ -734,6 +733,7 @@ span.price {
 .grid-item {
   flex: 1;
   justify-content: center;
+  max-width: 50vw;
   align-content: center;
   align-items: center;
   vertical-align: center;
@@ -984,6 +984,7 @@ span.price {
   font-family: 'Winky Sans', sans-serif;
   text-shadow: #0088a9;
   text-align: left;
+  width: 50vw;
 
 }
 .orderForm{
@@ -1041,7 +1042,7 @@ span.price {
 
 .footerContainer{
   
-  width:100%;
+  width:100vw;
   padding: 70px 30x 20px;
   background-color: rgb(212, 212, 212);
   border-bottom: #333;
@@ -1052,6 +1053,7 @@ span.price {
 
 .socialIcons{
   display:flex;
+  
   justify-content: center;
   padding-top:10px;
   z-index: 1;
@@ -1099,9 +1101,9 @@ span.price {
 .footerNav ul li a{
   background-color: rgb(212, 212, 212);
   color: rgb(0, 0, 0);
-
+  max-width: 20vw;
   text-decoration: none;
-  font-size: 1.3em;
+  font-size: 2vw;
   opacity: 0.7;
   transition: 0.5s;
 
@@ -1117,6 +1119,7 @@ span.price {
   color:rgb(0, 0, 0);
   padding: 20px;
   text-align: center;
+  font-size: 1.25vw;
 }
 
 .designer{
@@ -1162,7 +1165,7 @@ span.price {
 
 .star-item {
   flex: 1 1 calc(25% - 20px); /* Four items per row with gap adjustment */
-  max-width: 80%;
+  max-width: 50vw;
   text-align: left;
   background: #fff;
   border: 1% solid #ddd;
@@ -1451,6 +1454,23 @@ span.price {
 
 .suggestions li:hover {
   background: #f0f0f0;
+}
+
+table {
+  width: 50vw;
+  border-collapse: collapse;
+  margin: 3% auto;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+}
+td {
+  border: 1% solid black;
+  padding: 3%;
+}
+th {
+  background-color: #f4f4f4;
+  border: 1% solid black;
+  padding: 3%;
 }
 
 .close-btn {

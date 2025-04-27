@@ -63,50 +63,50 @@
     <div class="container">
       <center>
         <h1 style="margin: 2% 2%; font-family: DM Sans; background-color: white; padding: 1% 1%">How Can We Help?</h1>
-      </center>
-        <p>Have any questions or feedback? Fill out the form below and we'll get back to you soon!</p>
+      
+        <p style="margin: 1% 1%; font-family: 'DM Sans';">Have any questions or feedback? Fill out the form below and we'll get back to you soon!</p>
         
         <form id="contact-form">
-            <label for="name"  style="width: 80%; height: 40px;">Name:</label>
-            <input type="text" id="name" name="name" required>
+            <label for="name"  style="width: 80%; height: 10%; font-family: 'DM Sans'; ">Name:</label>
+            <input type="text" id="name"  name="entry.1234567890" style="width: 50vw; height: 5vh; padding-left: 1%; margin: 1% 1%; font-size: small;"  required>
             
-            <label for="email"  style="width: 80%; height: 30px;">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <label for="email"  style="width: 80%; height: 10%;">Email:</label>
+            <input type="email" id="email"  name="entry.0987654321"  style="width: 50vw; height: 5vh; padding-left: 1%; margin: 1% 1%; font-size: small;" required>
             
-            <label for="message" tyle="width: 80%; height: 100px;">Message:</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
+            <label for="message" style="width: 80%; height: 10%;">Message:</label>
+            <textarea id="message" rows="5" style="width: 50vw; height: 15vh; padding: 1% 1%; margin: 1% 1%; font-size: small;" required></textarea>
             
             <br>
 
             <button type="submit" style="border-radius: 5%; color: white; background-color: black; font-family: DM Sans;
-            width: 12%; padding-top: 1%; padding-bottom: 1%;">Send Message</button>
+            width: 30vw; padding: .5% .5%; font-size: 1em; margin: 1% 1%;">Send Message</button>
         </form>
     </div>
+  </center>
 
     <script>
-        document.getElementById('contact-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Thank you for reaching out! We will get back to you soon.');
-        });
+       
 
-        document.getElementById("contact-form").addEventListener("submit", function(event) {
+    document.getElementById("contact-form").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    const data = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        message: document.getElementById("message").value
-    };
+    const formData = new FormData();
+    formData.append("entry.1234567890", document.getElementById("name").value);
+    formData.append("entry.0987654321", document.getElementById("email").value);
+    formData.append("entry.1122334455", document.getElementById("message").value);
 
-    fetch("http://localhost:3001/submit", {
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSfD8X.../formResponse", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        mode: "no-cors",
+        body: formData
     })
-    .then(response => response.text())
-    .then(data => alert(data))
-    .catch(error => console.error("Error:", error));
-    });
+    .then(() => {
+        alert("Thank you! Your message has been submitted.");
+        document.getElementById("contact-form").reset();
+    })
+    .catch(error => console.error("Error submitting to Google Form:", error));
+});
+
     </script>
 </body>
  
