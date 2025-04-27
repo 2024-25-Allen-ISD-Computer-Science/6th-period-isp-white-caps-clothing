@@ -985,6 +985,7 @@ span.price {
   text-shadow: #0088a9;
   text-align: left;
   width: 50vw;
+  font-size: 1.4vw;
 
 }
 .orderForm{
@@ -993,6 +994,7 @@ span.price {
 }
 .item-paragraph{
   font-family: 'Winky Sans', sans-serif;
+  font-size: 1.3vw;
   text-shadow: #0088a9;
   text-align: center;
 
@@ -1282,8 +1284,9 @@ span.price {
 
 .color-options, .size-options {
   display: flex;
-  gap: 10px;
-  margin: 10px 0;
+  gap: .5vw;
+  justify-content: center;
+  margin: 3% 0;
 }
 
 .color {
@@ -1304,7 +1307,11 @@ span.price {
    color: white;
     background-color: black; 
     font-family: DM Sans;
- width: 80%; padding: 1% 8%; margin-top: 2%;
+    font-size: 1.2vw;
+    margin: .2vw .2vh;
+    padding: 5% 5%;
+ 
+
 }
 
  .cart-container {
@@ -1367,17 +1374,16 @@ span.price {
         }
 
 
-.size-options{
-  margin-left: 35% ;
-}
 
 .size {
 
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 4% 5%;
+  border: .5% solid #ccc;
+  border-radius: 20%;
   background-color: #fff;
+  height: 5%;
   cursor: pointer;
+  font-size: 1.1vw;
 }
 
 .size:hover, .size.selected {
@@ -1462,6 +1468,7 @@ table {
   margin: 3% auto;
   text-align: center;
   font-family: 'DM Sans', sans-serif;
+  font-size: 1.35vw;
 }
 td {
   border: 1% solid black;
