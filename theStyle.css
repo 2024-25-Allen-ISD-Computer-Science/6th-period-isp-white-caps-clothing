@@ -1197,8 +1197,8 @@ span.price {
 }
 
 .hat-item {
-  flex: 1 1 calc(25% - 20px); /* Four items per row with gap adjustment */
-  max-width: calc(25% - 20px);
+  flex: 1 1 calc(25vw - 20px); /* Four items per row with gap adjustment */
+  max-width: 25vw;
   text-align: left;
   background: #fff;
   border: 1% solid #ddd;
@@ -1209,13 +1209,10 @@ span.price {
 }
 
 .hat-item img {
-  display: flex;
-  justify-self: center;
-  align-self: center;
-  height: auto;
-  max-width: 100%;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 15px;
+   width: 100%;
+  height: auto; /* auto keeps aspect ratio */
+  border-radius: 5%;
+  object-fit: contain;
 }
 
 .cap-label {
@@ -1310,9 +1307,82 @@ span.price {
     font-size: 1.2vw;
     margin: .2vw .2vh;
     padding: 5% 5%;
- 
-
 }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2vw;
+  margin: 3vh 3vw;
+}
+
+.card, .tall-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2vw;
+  background: #f5f5f5;
+  box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card img, .tall-card img {
+  width: 100%;
+  height: auto; /* auto keeps aspect ratio */
+  border-radius: 5%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.card {
+  height: auto; /* let content define the height naturally */
+}
+
+.tall-card {
+  grid-row: span 2; /* make it taller in the grid */
+}
+
+.card:hover img, .tall-card img, .hat-item :hover img {
+  transform: scale(1.05);
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 4vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 5vw;
+  }
+}
+
+    
+    .heart {
+      position: absolute;
+      top: 2vh;
+      right: 2vw;
+      font-size: 2vw;
+      color: black;
+      background: white;
+      border-radius: 50%;
+      padding: 0.5vw;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .heart:hover {
+      color: red;
+    }
+    
+
+  
+
 
  .cart-container {
             display: flex;
