@@ -141,7 +141,6 @@
                 </center>
             </div>
 
-            <!-- Cart summary to the right -->
             <div class="cart-summary">
                 <div id="items"></div>
             
@@ -204,9 +203,15 @@
                 name: document.getElementById('name').value,
                 address: document.getElementById('address').value,
                 phonenumber: document.getElementById('phonenumber').value,
-                items: cart.map(item => `${item.name} - $${item.price.toFixed(2)}`).join(', '),
-                totalPrice: document.getElementById('total-price').textContent
+                items: cart.map(item => `${item.item} - $${item.price.toFixed(2)}`).join(', '),
+                totalPrice: document.getElementById('total-price').textContent,
+                orderDate: new Date().toLocaleString() // Add the order date
             };
+
+            // Store the order in localStorage
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(formData);
+            localStorage.setItem('orders', JSON.stringify(orders));
 
             fetch('https://script.google.com/macros/s/AKfycbz3GMNqHjvM2dwXj_be4zXKKdKkuNZbUylftrgDF_NJW729KtsIJ3Mti-duimxuWpTm/exec', {
                 method: 'POST',
@@ -274,7 +279,7 @@
     
           
           <div class="footerBottom">
-            <p>Copyright &copy;2025; Designed by <span class="designer">Nathan Wulur and Rehan Saneesh</span> </p>
+            <p>Copyright ©2025; Designed by <span class="designer">Nathan Wulur and Rehan Saneesh</span> </p>
           </div>
         </div>
       </footer>
