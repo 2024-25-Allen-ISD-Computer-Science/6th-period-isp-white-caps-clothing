@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -107,6 +108,9 @@
         const recentOrdersContainer = document.getElementById('recent-orders-container');
 
         const correctPassword = "LbzT12!"; // Change this to your desired password
+        const googleSheetId = "2PACX-1vTe0zXJc59hVDXiJ_DqurB9V199LDOM199vrqPjSrJ6nOzT4OA1wvSIfR_rLmWptizwK-jfJU7NmcRC"; // Replace with your sheet ID
+        const worksheetName = "Sheet1";  // Replace with your worksheet name
+
 
         loginButton.addEventListener('click', function() {
             const enteredPassword = passwordInput.value;
@@ -184,38 +188,55 @@
         }
 
         function displayOrders() {
-            let orders = JSON.parse(localStorage.getItem('orders')) || [];
-            recentOrdersContainer.innerHTML = '';
-            let totalRevenue = 0;
+            Tabletop.init({
+                key: googleSheetId,
+                callback: function(data, tabletop) {
+                    if (tabletop.errors.length) {
+                        console.error('Error fetching data from Google Sheets:', tabletop.errors);
+                        recentOrdersContainer.innerHTML = '<p class="text-red-500 text-center">Failed to load orders from Google Sheets.</p>';
+                        totalOrdersElement.textContent = `Total Orders: 0`;
+                        totalRevenueElement.textContent = `Total Revenue: $0.00`;
+                        return;
+                    }
 
-            if (orders.length === 0) {
-                recentOrdersContainer.innerHTML = '<p class="text-gray-500 text-center" style="padding-bottom: 20px; display: block; margin-left: auto; margin-right: auto">No orders found.</p>';
-                totalOrdersElement.textContent = `Total Orders: 0`;
-                totalRevenueElement.textContent = `Total Revenue: $0.00`;
-                return;
-            }
+                    let orders = data;  // Data is already an array of objects
+                    recentOrdersContainer.innerHTML = '';
+                    let totalRevenue = 0;
 
-            //show only the last 3 orders
-            const recentOrders = orders.slice(-3);
+                    if (orders.length === 0) {
+                        recentOrdersContainer.innerHTML = '<p class="text-gray-500 text-center">No orders found.</p>';
+                        totalOrdersElement.textContent = `Total Orders: 0`;
+                        totalRevenueElement.textContent = `Total Revenue: $0.00`;
+                        return;
+                    }
 
-            recentOrders.forEach((order, index) => {
-                const orderDiv = document.createElement('div');
-                orderDiv.classList.add('order-box');
-                orderDiv.innerHTML = `
-                    <p><strong>Order ID:</strong> ${orders.length - index}</p>
-                    <p><strong>Name:</strong> ${order.name}</p>
-                    <p><strong>Address:</strong> ${order.address}</p>
-                    <p><strong>Phone Number:</strong> ${order.phonenumber}</p>
-                    <p><strong>Items:</strong> ${order.items}</p>
-                    <p><strong>Total Price:</strong> ${order.totalPrice}</p>
-                    <p><strong>Order Date:</strong> ${order.orderDate}</p>
-                `;
-                recentOrdersContainer.appendChild(orderDiv);
-                totalRevenue += parseFloat(order.totalPrice.replace('Total Price: $', ''));
+                    //show only the last 3 orders
+                    const recentOrders = orders.slice(-3);
+
+                    recentOrders.forEach((order, index) => {
+                        const orderDiv = document.createElement('div');
+                        orderDiv.classList.add('order-box');
+                        orderDiv.innerHTML = `
+                            <p><strong>Order ID:</strong> ${orders.length - index}</p>
+                            <p><strong>Name:</strong> ${order.Name}</p>
+                            <p><strong>Address:</strong> ${order.Address}</p>
+                            <p><strong>Items:</strong> ${order["Items Ordered"]}</p>
+                            <p><strong>Total Price:</strong> ${order["Total Price"]}</p>
+                        `;
+                        recentOrdersContainer.appendChild(orderDiv);
+                        let price = parseFloat(order["Total Price"].replace('$', ''));
+                        if(!isNaN(price)){
+                            totalRevenue += price;
+                        }
+
+                    });
+
+                    totalOrdersElement.textContent = `Total Orders: ${orders.length}`;
+                    totalRevenueElement.textContent = `Total Revenue: $${totalRevenue.toFixed(2)}`;
+                },
+                simpleSheet: true,
+                worksheetName: worksheetName
             });
-
-            totalOrdersElement.textContent = `Total Orders: ${orders.length}`;
-            totalRevenueElement.textContent = `Total Revenue: $${totalRevenue.toFixed(2)}`;
         }
     </script>
 </body>
