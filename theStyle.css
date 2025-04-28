@@ -1308,6 +1308,52 @@ span.price {
     margin: .2vw .2vh;
     padding: 5% 5%;
 }
+.product-slider {
+  position: relative;
+  width: 100%;
+  max-width: 500px; /* adjust to fit */
+  margin: auto;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slides img {
+  width: 100%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(120, 152, 255, 0.5);
+  color: white;
+  border: none;
+  font-size: 1vw; /* size of the arrow */
+  padding: 0.5vw ;
+  border-radius: 10%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0, 10, 65, 0.8);
+}
+
 
 .gallery {
   display: grid;

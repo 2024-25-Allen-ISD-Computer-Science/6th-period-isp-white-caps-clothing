@@ -54,12 +54,32 @@
       </li>
     </ul>
   </header>
+  <script>
+    let currentSlide = 0;
+    
+    function moveSlide(direction) {
+      const slides = document.querySelector('.slides');
+      const images = document.querySelectorAll('.slides img');
+      const totalSlides = images.length;
+    
+      currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+      slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+    </script>
 
 <body>
   <div class="grid-container">
     <div class="grid-item">
       <div class="star-item">
-        <img src="White Caps Images/White Caps Clothes/Stars and Galaxies Zip-Up Hoodie.jpg" alt="Star Hoodie">
+        <div class="product-slider">
+          <div class="slides">
+            <img src="White Caps Images/White Caps Clothes/Stars and Galaxies Zip-Up Hoodie.jpg" alt="Star Hoodie">
+            <img src="White Caps Images/White Caps Clothes/ZipUpBack.jpg" alt="Star Hoodie Back">
+            <img src="White Caps Images/Model Pics/ZipUpWill.jpg.png" alt="Star Hoodie Closeup">
+          </div>
+          <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+          <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
         <div class="product-details">
           <center>
             <h1 class="item-paragraph">Stars and Galaxies Zip-Up Hoodie</h1>
