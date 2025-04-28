@@ -3,207 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="theStyle.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
-    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>White Caps Clothing</title>
+    <title>Password Protected Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .cart-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            width: 100%;
+        body {
+            font-family: 'Inter', sans-serif;
         }
-
-        .orderForm {
-            flex: 1;
-            max-width: 600px;
+        #order-table {
+            border-collapse: collapse;
+            width: 75%;
+            margin-top: 20px;
         }
-
-        .cart-summary {
-            flex: 1;
-            max-width: 400px;
-            padding: 20px;
-            border-left: 2px solid #ddd;
-            height: 100%;
-            position: absolute;
-            right: 600px;
-            top: 300px;
-            width: 300px;
-        }
-
-        #items {
+        #order-table th, #order-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
             text-align: left;
         }
-
-        .cart-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
+        #order-table th {
+            background-color: #f0f0f0;
         }
-
-        .cart-item img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-right: 10px;
+        #order-table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
-
-        #total-price {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 10px;
+        #order-table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        #order-summary {
+            margin-bottom: 20px;
+            padding: 1.5rem;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        #content-container {
+            display: none;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 2rem;
+            padding: 1.5rem;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 100%;
+        }
+        @media (min-width: 768px) {
+            #content-container {
+                flex-direction: row;
+            }
+            .flex-1{
+               flex: 1;
+               min-width: 0;
+            }
         }
     </style>
 </head>
-<body>
-    <h1 class="slogan">
-        Wear the Change, Make a Difference.
-    </h1>
-    <header>
-        <a href="Home.html" class="homebutton">
-            <img class="homelogo" src="White Caps Images/WhiteCapsCircleLogo.png" alt="logo" height="80px" width="80px">
-        </a>
-        <nav class="navbar">
-            <ul class="nav_links">
-                <li><a href="Shop.html">Shop</a></li>
-                <li><a href="NewAboutUs.html">About</a></li>
-                <li><a href="donation.html">Fundraiser</a></li>
-            </ul>
-        </nav>
-        <ul>
-            <li><a href="Contact.html" class="cta">
-                <img src="White Caps Images/phone.png" alt="phone" height="35px" width="35px"></a>
-            </li>
-            <li><a href="ShoppingCart.html" class="cta">
-                <img src="White Caps Images/cart.png" alt="cart" height="35px" width="35px"></a>
-            </li>
-            <li><a href="ShoppingCart.html" class="cta">
-                <img src="White Caps Images/Search.png" alt="Search" height="35px" width="35px"></a>
-            </li>
-        </ul>
-    </header>
+  <padding>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+    <div id="password-container" class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <a href="index.html" class="homebutton">
+            <img class="homelogo" src="White Caps Images/WhiteCapsCircleLogo.png" alt="logo" style="padding-bottom: 20px; display: block; margin-left: auto; margin-right: auto" height="150px" width="150px">
+          </a>
+        <h1 class="text-2xl font-semibold text-blue-600 mb-4 text-center">Enter Password</h1>
+        <div id="error-message" class="text-red-500 text-sm mb-4 text-center" style="display: none;"></div>
+        <div class="mb-4">
+            <input type="password" id="password-input" placeholder="Enter password" class="w-full px-4 py-2 rounded-md border border-gray-300 focus:border-blue-500 focus:ring-blue-500">
+        </div>
+        <button id="login-button" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-md py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-400">Login</button>
+    </div>
 
-    <div>
-        <h1 style="font-family: 'Raleway', sans-serif; font-weight: 400; font-style: normal; margin: 2% 2%;">Shopping Cart</h1>
-        <div class="cart-container">
-            <div class="orderForm">
-                <center>
-                    <h1>Order Form</h1>
-                    <form id="orderForm">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" required><br><br>
-
-                        <label for="address">Address:</label>
-                        <input type="text" id="address" name="address" required><br><br>
-
-                        <label for="phonenumber">Phone Number:</label>
-                        <input type="text" id="phonenumber" name="phonenumber" required><br><br>
-
-                        <h1 id="total-price">Total Price: $0.00</h1>
-
-                        <br><br>
-
-                        <button type="button" onclick="clearCart()">Clear Cart</button>
-                        <button type="submit">Submit Order</button>
-                    </form>
-                </center>
+    <div id="content-container" class=" ">
+        <div class="flex-1">
+            <a href="index.html" class="homebutton">
+                <img class="homelogo" src="White Caps Images/WhiteCapsCircleLogo.png" alt="logo" style="padding-bottom: 20px; display: block; margin-left: auto; margin-right: auto" height="200px" width="200px">
+              </a>
+            <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">View Complaints</h2>
+            <div id="complaints-list" class="space-y-4">
+                </div>
+        </div>
+        <div class="flex-1">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Order Details</h2>
+            <div id="order-summary" class="  mb-8">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Order Summary</h3>
+                <p id="total-orders" class="text-gray-600">Total Orders: 0</p>
+                <p id="total-revenue" class="text-gray-600">Total Revenue: $0.00</p>
             </div>
-
-            <!-- Cart summary to the right -->
-            <div class="cart-summary">
-                <h2>Items in Cart</h2>
-                <div id="items"></div>
-            </div>
+            <table id="order-table" class="w-full">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone Number</th>
+                        <th>Items</th>
+                        <th>Total Price</th>
+                        <th>Order Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="7" class="text-center text-gray-500">No orders found.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQj-6zAF_H-qGAfDPAjY-HjFyd9c9jM99p5LAl9_6L6Lg6gM8jM59rLtt9e4r89vQ/pubhtml" target="_blank" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                View All Orders
+            </a>
         </div>
     </div>
 
     <script>
-        // Display items in the cart
-        function displayOrder() {
-            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-            const itemsContainer = document.getElementById('items');
+        const passwordContainer = document.getElementById('password-container');
+        const contentContainer = document.getElementById('content-container');
+        const passwordInput = document.getElementById('password-input');
+        const loginButton = document.getElementById('login-button');
+        const errorMessage = document.getElementById('error-message');
+        //complaints
+        const complaintsList = document.getElementById('complaints-list');
+        //orders
+        const orderTable = document.getElementById('order-table').getElementsByTagName('tbody')[0];
+        const totalOrdersElement = document.getElementById('total-orders');
+        const totalRevenueElement = document.getElementById('total-revenue');
 
-            itemsContainer.innerHTML = ""; // Clear previous content
+        const correctPassword = "LbzT12!"; // Change this to your desired password
 
-            if (cart.length === 0) {
-                itemsContainer.innerHTML = "<p>No items in cart.</p>";
+        loginButton.addEventListener('click', function() {
+            const enteredPassword = passwordInput.value;
+
+            if (enteredPassword === correctPassword) {
+                passwordContainer.style.display = 'none';
+                contentContainer.style.display = 'flex'; // Show the content
+                displayComplaints();
+                displayOrders();
             } else {
-                cart.forEach(item => {
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('cart-item');
-
-                    const itemImage = document.createElement('img');
-                    itemImage.src = item.image;
-                    itemImage.alt = item.item;
-
-                    const itemDetails = document.createElement('p');
-                    itemDetails.textContent = `${item.item} - Size: ${item.size} - $${item.price.toFixed(2)}`;
-
-                    itemElement.appendChild(itemImage);
-                    itemElement.appendChild(itemDetails);
-                    itemsContainer.appendChild(itemElement);
-                });
+                errorMessage.textContent = "Incorrect password. Please try again.";
+                errorMessage.style.display = 'block';
+                passwordInput.value = '';
             }
-        }
-
-        // Display total price
-        function displayTotalPrice() {
-            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-            const totalPrice = cart.reduce((total, item) => total + item.price, 0);
-            document.getElementById('total-price').textContent = `Total Price: $${totalPrice.toFixed(2)}`;
-        }
-
-        // Clear cart
-        function clearCart() {
-            localStorage.removeItem('shoppingCart');
-            displayOrder();
-            displayTotalPrice();
-            alert("Cart has been cleared!");
-        }
-
-        // Submit order and send data to Google Sheets
-        document.getElementById('orderForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-            const formData = {
-                name: document.getElementById('name').value,
-                address: document.getElementById('address').value,
-                phonenumber: document.getElementById('phonenumber').value,
-                items: cart.map(item => `${item.name} - $${item.price.toFixed(2)}`).join(', '),
-                totalPrice: document.getElementById('total-price').textContent
-            };
-
-            fetch('https://script.google.com/macros/s/AKfycbz3GMNqHjvM2dwXj_be4zXKKdKkuNZbUylftrgDF_NJW729KtsIJ3Mti-duimxuWpTm/exec', {
-                method: 'POST',
-                body: JSON.stringify(formData),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                mode: 'no-cors' 
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Order submitted successfully!');
-                document.getElementById('orderForm').reset();
-                localStorage.removeItem('shoppingCart');
-                displayOrder();
-                displayTotalPrice();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("Error submitting order.");
-            });
         });
 
-        // Ensure items and total price display when the page loads
-        window.onload = function() {
-            displayOrder();
-            displayTotalPrice();
-        };
+        function displayComplaints() {
+            let complaints = JSON.parse(localStorage.getItem('complaints')) || [];
+            complaintsList.innerHTML = '';
+
+            if (complaints.length === 0) {
+                complaintsList.innerHTML = '<p class="text-gray-500 text-center">No complaints found.</p>';
+                return;
+            }
+
+            complaints.forEach((complaint, index) => {
+                const complaintDiv = document.createElement('div');
+                complaintDiv.classList.add('bg-white', 'border', 'border-gray-200', 'rounded-lg', 'p-4', 'shadow-md', 'flex', 'justify-between', 'items-center');
+                complaintDiv.setAttribute('data-complaint-index', index); // Store the index
+
+                const complaintDetails = document.createElement('div');
+                complaintDetails.classList.add('space-y-2');
+                complaintDetails.innerHTML = `
+                    <p class="text-gray-700"><strong>Email:</strong> ${complaint.email}</p>
+                    <p class="text-gray-700"><strong>Name:</strong> ${complaint.name}</p>
+                    <p class="text-gray-700"><strong>Description:</strong> ${complaint.description}</p>
+                    <p class="text-gray-500 text-sm"><strong>Submitted:</strong> ${new Date(complaint.timestamp).toLocaleString()}</p>
+                `;
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = complaint.resolved;
+                checkbox.classList.add('mr-2', 'cursor-pointer');
+                checkbox.id = `resolve-checkbox-${index}`;
+
+                const label = document.createElement('label');
+                label.htmlFor = `resolve-checkbox-${index}`;
+                label.textContent = 'Resolved';
+                label.classList.add('text-gray-700', 'font-medium', 'cursor-pointer');
+
+                const checkboxContainer = document.createElement('div');
+                checkboxContainer.classList.add('flex', 'items-center');
+                checkboxContainer.appendChild(checkbox);
+                checkboxContainer.appendChild(label);
+
+
+                checkbox.addEventListener('change', () => {
+                    complaints[index].resolved = checkbox.checked;
+                    localStorage.setItem('complaints', JSON.stringify(complaints));
+                    if (checkbox.checked) {
+                        complaintDiv.remove(); // Remove the complaint from the DOM
+                        // Remove from localStorage as well
+                        let updatedComplaints = JSON.parse(localStorage.getItem('complaints')) || [];
+                        updatedComplaints.splice(index, 1);
+                        localStorage.setItem('complaints', JSON.stringify(updatedComplaints));
+
+                    }
+                    displayComplaints();
+                });
+
+                complaintDiv.appendChild(complaintDetails);
+                complaintDiv.appendChild(checkboxContainer);
+                complaintsList.appendChild(complaintDiv);
+            });
+        }
+
+        function displayOrders() {
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orderTable.innerHTML = '';
+            let totalRevenue = 0;
+
+            if (orders.length === 0) {
+                orderTable.insertRow().insertCell().colSpan = 7;
+                orderTable.rows[0].textContent = "No orders found.";
+                orderTable.rows[0].classList.add('text-center', 'text-gray-500');
+                totalOrdersElement.textContent = `Total Orders: 0`;
+                totalRevenueElement.textContent = `Total Revenue: $0.00`;
+                return;
+            }
+
+            //show only the last 3 orders
+            const recentOrders = orders.slice(-3);
+
+            recentOrders.forEach((order, index) => {
+                let row = orderTable.insertRow();
+                let orderIdCell = row.insertCell();
+                let nameCell = row.insertCell();
+                let addressCell = row.insertCell();
+                let phoneNumberCell = row.insertCell();
+                let itemsCell = row.insertCell();
+                let totalPriceCell = row.insertCell();
+                let orderDateCell = row.insertCell();
+
+                orderIdCell.textContent = orders.length - index; // Corrected order ID for recent orders
+                nameCell.textContent = order.name;
+                addressCell.textContent = order.address;
+                phoneNumberCell.textContent = order.phonenumber;
+                itemsCell.textContent = order.items;
+                totalPriceCell.textContent = order.totalPrice;
+                orderDateCell.textContent = order.orderDate;
+
+                totalRevenue += parseFloat(order.totalPrice.replace('Total Price: $', ''));
+            });
+
+            totalOrdersElement.textContent = `Total Orders: ${orders.length}`;
+            totalRevenueElement.textContent = `Total Revenue: $${totalRevenue.toFixed(2)}`;
+        }
     </script>
 </body>
 </html>
