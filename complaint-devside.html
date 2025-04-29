@@ -12,25 +12,6 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        #order-table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 20px;
-        }
-        #order-table th, #order-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        #order-table th {
-            background-color: #f0f0f0;
-        }
-        #order-table tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        #order-table tbody tr:hover {
-            background-color: #f1f1f1;
-        }
         #order-summary {
             margin-bottom: 20px;
             padding: 1.5rem;
@@ -59,10 +40,24 @@
                min-width: 0;
             }
         }
+        .order-box {
+            margin-bottom: 20px;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 1.5rem; /* Added margin between boxes */
+        }
     </style>
 </head>
+  <padding>
 <body class="bg-gray-100 flex justify-center items-center min-h-screen">
     <div id="password-container" class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <a href="index.html" class="homebutton">
+            <img class="homelogo" src="White Caps Images/WhiteCapsCircleLogo.png" alt="logo" style="padding-bottom: 20px; display: block; margin-left: auto; margin-right: auto" height="150px" width="150px">
+          </a>
         <h1 class="text-2xl font-semibold text-blue-600 mb-4 text-center">Enter Password</h1>
         <div id="error-message" class="text-red-500 text-sm mb-4 text-center" style="display: none;"></div>
         <div class="mb-4">
@@ -73,7 +68,13 @@
 
     <div id="content-container" class=" ">
         <div class="flex-1">
-            <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">View Complaints</h2>
+            <a href="index.html" class="homebutton">
+                <img class="homelogo" src="White Caps Images/WhiteCapsCircleLogo.png" alt="logo" style="padding-bottom: 20px; display: block; margin-left: auto; margin-right: auto" height="200px" width="200px">
+              </a>
+              <h1 class="text-xl font-semibold text-gray-800 mb-6 text-center" style="padding-bottom: 20px; display: block; margin-left: auto; margin-right: auto">White Caps Clo.</h1>
+        </div>
+        <div class="flex-1">
+            <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">View Messages</h2>
             <div id="complaints-list" class="space-y-4">
                 </div>
         </div>
@@ -84,24 +85,11 @@
                 <p id="total-orders" class="text-gray-600">Total Orders: 0</p>
                 <p id="total-revenue" class="text-gray-600">Total Revenue: $0.00</p>
             </div>
-            <table id="order-table" class="w-full">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Phone Number</th>
-                        <th>Items</th>
-                        <th>Total Price</th>
-                        <th>Order Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="7" class="text-center text-gray-500">No orders found.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="recent-orders-container">
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1hdUrf-qfmpvlVHoXLzvjxiOIhHIVvXjeUpcHNeghqUs/edit?gid=0#gid=0" target="_blank" style="display: block; margin-left: auto; margin-right: auto" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                View All Orders
+            </a>
         </div>
     </div>
 
@@ -114,9 +102,9 @@
         //complaints
         const complaintsList = document.getElementById('complaints-list');
         //orders
-        const orderTable = document.getElementById('order-table').getElementsByTagName('tbody')[0];
         const totalOrdersElement = document.getElementById('total-orders');
         const totalRevenueElement = document.getElementById('total-revenue');
+        const recentOrdersContainer = document.getElementById('recent-orders-container');
 
         const correctPassword = "LbzT12!"; // Change this to your desired password
 
@@ -140,7 +128,7 @@
             complaintsList.innerHTML = '';
 
             if (complaints.length === 0) {
-                complaintsList.innerHTML = '<p class="text-gray-500 text-center">No complaints found.</p>';
+                complaintsList.innerHTML = '<p class="text-gray-500 text-center" style="padding-bottom: 20px; display: block; margin-left: auto; margin-right: auto">No messages found.</p>';
                 return;
             }
 
@@ -197,36 +185,32 @@
 
         function displayOrders() {
             let orders = JSON.parse(localStorage.getItem('orders')) || [];
-            orderTable.innerHTML = '';
+            recentOrdersContainer.innerHTML = '';
+            let totalRevenue = 0;
 
             if (orders.length === 0) {
-                orderTable.insertRow().insertCell().colSpan = 7;
-                orderTable.rows[0].textContent = "No orders found.";
-                orderTable.rows[0].classList.add('text-center', 'text-gray-500');
+                recentOrdersContainer.innerHTML = '<p class="text-gray-500 text-center" style="padding-bottom: 20px; display: block; margin-left: auto; margin-right: auto">No orders found.</p>';
                 totalOrdersElement.textContent = `Total Orders: 0`;
                 totalRevenueElement.textContent = `Total Revenue: $0.00`;
                 return;
             }
 
-            let totalRevenue = 0;
-            orders.forEach((order, index) => {
-                let row = orderTable.insertRow();
-                let orderIdCell = row.insertCell();
-                let nameCell = row.insertCell();
-                let addressCell = row.insertCell();
-                let phoneNumberCell = row.insertCell();
-                let itemsCell = row.insertCell();
-                let totalPriceCell = row.insertCell();
-                let orderDateCell = row.insertCell();
+            //show only the last 3 orders
+            const recentOrders = orders.slice(-3);
 
-                orderIdCell.textContent = index + 1;
-                nameCell.textContent = order.name;
-                addressCell.textContent = order.address;
-                phoneNumberCell.textContent = order.phonenumber;
-                itemsCell.textContent = order.items;
-                totalPriceCell.textContent = order.totalPrice;
-                orderDateCell.textContent = order.orderDate;
-
+            recentOrders.forEach((order, index) => {
+                const orderDiv = document.createElement('div');
+                orderDiv.classList.add('order-box');
+                orderDiv.innerHTML = `
+                    <p><strong>Order ID:</strong> ${orders.length - index}</p>
+                    <p><strong>Name:</strong> ${order.name}</p>
+                    <p><strong>Address:</strong> ${order.address}</p>
+                    <p><strong>Phone Number:</strong> ${order.phonenumber}</p>
+                    <p><strong>Items:</strong> ${order.items}</p>
+                    <p><strong>Total Price:</strong> ${order.totalPrice}</p>
+                    <p><strong>Order Date:</strong> ${order.orderDate}</p>
+                `;
+                recentOrdersContainer.appendChild(orderDiv);
                 totalRevenue += parseFloat(order.totalPrice.replace('Total Price: $', ''));
             });
 
