@@ -10,32 +10,40 @@
     <title>White Caps Clothing</title>
     <style>
         .cart-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            display: flex; 
+            justify-content: left;
+            align-items: flex-start; /* Align content at the top */
             width: 100%;
+            gap: 40px; /* Adds space between cart and form */
         }
+
 
         .orderForm {
             flex: 1;
-            max-width: 600px;
+            max-width: 50vw;
         }
 
         .cart-summary {
-            flex: 1;
-            max-width: 400px;
-            padding: 20px;
-            border-left: 2px solid #ddd;
-            height: 100%;
-            position: absolute;
-            right: 600px;
-            top: 300px;
-            width: 300px;
+            
+            max-width: 50vw;
+            max-height: 100vh;
+            padding: 2%; /* Reduce padding */
+            border-right: 2px solid #000000;
+        }
+        .img_logo {
+            padding-top: 5vh;
+        }
+
+        .cart-summary h2 {
+            font-family: 'DM Sans';
         }
 
         #items {
             text-align: left;
+            font-family: 'DM Sans';
+            font-size: 80%;
         }
+
 
         .cart-item {
             display: flex;
@@ -44,11 +52,18 @@
         }
 
         .cart-item img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
+            width: 30%;
+            height: 30%;
+            margin: 1% 1%;
+            object-fit: fill;
             border-radius: 8px;
             margin-right: 10px;
+        }
+
+        .cart-item p{
+            font-family: 'DM Sans';
+            display: flex;
+            max-width: 25vw;
         }
 
         #total-price {
@@ -60,7 +75,7 @@
 </head>
 <body>
     <h1 class="slogan">
-        Wear the Change, Make a Difference.
+        Elegance woven from Nature.
     </h1>
     <header>
         <a href="Home.html" class="homebutton">
@@ -80,9 +95,23 @@
             <li><a href="ShoppingCart.html" class="cta">
                 <img src="White Caps Images/cart.png" alt="cart" height="35px" width="35px"></a>
             </li>
-            <li><a href="ShoppingCart.html" class="cta">
-                <img src="White Caps Images/Search.png" alt="Search" height="35px" width="35px"></a>
-            </li>
+            <li>
+                <button onclick="openSearch()" class="cta">
+                  <img src="White Caps Images/Search.png" alt="Search" height="35px" width="35px">
+                </button>
+              </li>
+              <div class="search-overlay" id="searchOverlay">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search..." oninput="searchItems()">
+                    <ul class="suggestions" id="suggestions"></ul>
+                    <button class="close-btn" onclick="closeSearch()">Close</button>
+                </div> 
+              </div>
+              <li>
+                <a href="inspiration.html" class="cta">
+                  <img src="White Caps Images/whitelightbulb.png" alt="cart" height="35px" width="35px">
+                </a>
+              </li>
         </ul>
     </header>
 
@@ -112,12 +141,12 @@
                 </center>
             </div>
 
-            <!-- Cart summary to the right -->
             <div class="cart-summary">
-                <h2>Items in Cart</h2>
                 <div id="items"></div>
-            </div>
+            
+
         </div>
+      
     </div>
 
     <script>
@@ -136,7 +165,8 @@
                     itemElement.classList.add('cart-item');
 
                     const itemImage = document.createElement('img');
-                    itemImage.src = item.image;
+                    itemImage.src = ("White Caps Images/White Caps Clothes/" + item.item + ".jpg");
+                    
                     itemImage.alt = item.item;
 
                     const itemDetails = document.createElement('p');
@@ -173,9 +203,15 @@
                 name: document.getElementById('name').value,
                 address: document.getElementById('address').value,
                 phonenumber: document.getElementById('phonenumber').value,
-                items: cart.map(item => `${item.name} - $${item.price.toFixed(2)}`).join(', '),
-                totalPrice: document.getElementById('total-price').textContent
+                items: cart.map(item => `${item.item} - $${item.price.toFixed(2)}`).join(', '),
+                totalPrice: document.getElementById('total-price').textContent,
+                orderDate: new Date().toLocaleString() // Add the order date
             };
+
+            // Store the order in localStorage
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(formData);
+            localStorage.setItem('orders', JSON.stringify(orders));
 
             fetch('https://script.google.com/macros/s/AKfycbz3GMNqHjvM2dwXj_be4zXKKdKkuNZbUylftrgDF_NJW729KtsIJ3Mti-duimxuWpTm/exec', {
                 method: 'POST',
@@ -205,5 +241,47 @@
             displayTotalPrice();
         };
     </script>
+<center>
+<div class="info-p">
+               
+    <h1>IMPORTANT INFO:</h1>
+    <p>---------------------------------------------------------</p>
+    <p>Currently, bank payment is not set up, so we will  
+    accept venmo or in-person transactions for the  
+    products. We will contact you with updates on production/delivery with sms. Feel free to contact us for any questions or concerns. 
+    Thank you!  </p>
+
+    <padding>
+    <img src="White Caps Images/WhiteCapsCircleLogo.png" class="img_logo" alt="logo">
+
+</div>
+
+    <footer>
+        <div class="footerContainer">
+          <div class="socialIcons">
+              <a href="https://www.instagram.com/whitecapsclothing?igsh=bHYxdnh6M3ZuZ3h4" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://www.instagram.com/whitecapsclothing?igsh=bHYxdnh6M3ZuZ3h4" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+              <a href="https://www.youtube.com/@whitecapsclothing" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+          <div class="footerNav">
+            
+              <ul>
+                <li>
+                  <div class="circlelogo" >
+                    <img src="White Caps Images/WhiteCapsCircleLogo.png" height="100px" width="100px" align="left">
+                  </div>
+                </li>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="NewAboutUs.html">About Us</a></li>
+                <li><a href="">Contact Information</a></li>
+              </ul>
+          </div>
+    
+          
+          <div class="footerBottom">
+            <p>Copyright ©2025; Designed by <span class="designer">Nathan Wulur and Rehan Saneesh</span> </p>
+          </div>
+        </div>
+      </footer>
 </body>
 </html>
