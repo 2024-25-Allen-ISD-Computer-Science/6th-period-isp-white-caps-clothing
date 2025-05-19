@@ -1445,8 +1445,7 @@ span.price {
         .info-p{
           font-family: 'DM Sans';
           max-width: 50vw;
-          
-          margin-bottom: 2%;
+          margin: 4% 4%;
         }
 
         .cart-summary {
@@ -1469,7 +1468,7 @@ span.price {
             font-size: 80%;
 
         }
-
+        
         .cart-item {
             display: flex;
             align-items: center;
