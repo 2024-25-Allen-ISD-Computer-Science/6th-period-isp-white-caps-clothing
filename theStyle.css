@@ -1207,6 +1207,7 @@ span.price {
   border: 1% solid #ddd;
   border-radius: 8px;
   padding: 1% 1%;
+  font-family: 'Antonio';
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
 }
@@ -1693,7 +1694,7 @@ th {
     padding-left: 2%;
     background-color: rgba(0, 0, 0, 0.3);
     font-family: 'DM Sans', serif;
-    font-size: large;
+    font-size: 1.3vw;
     color: white;
     
    
@@ -1738,4 +1739,134 @@ th {
 }
 
 /* Contact Form Styling */
+
+/* Section headings */
+section h2 {
+  border-bottom: 0.5vh solid  #040653;
+  padding-bottom: 1vh;
+  margin-bottom: 3vh;
+  font-size: 2.5vh;
+  color: #040653;
+}
+
+/* Recently Viewed Section */
+#recentlyViewedItems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2vw;
+  margin-bottom: 5vh;
+}
+
+#recentlyViewedItems div {
+  background: #ffffff;
+  padding: 2vh 2vw;
+  border-radius: 1vh;
+  box-shadow: 0 0.4vh 1vh rgba(0, 0, 0, 0.1);
+  flex: 1 1 40%;
+  min-width: 120px;
+  transition: box-shadow 0.2s ease;
+}
+
+#recentlyViewedItems div:hover {
+  box-shadow: 0 0.6vh 1.5vh rgba(30, 144, 255, 0.3);
+}
+
+/* Reviews Section */
+#reviewForm {
+  background: #fff;
+  padding: 3vh 3vw;
+  border-radius: 1.5vh;
+  box-shadow: 0 0.6vh 1.6vh rgba(0, 0, 0, 0.1);
+  margin-bottom: 4vh;
+}
+
+#reviewForm input[type="text"],
+#reviewForm select,
+#reviewForm textarea {
+  width: 100%;
+  margin-bottom: 2vh;
+  padding: 1.5vh 1vw;
+  border: 0.2vh solid #ccc;
+  border-radius: 1vh;
+  font-size: 1.8vh;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+#reviewForm input:focus,
+#reviewForm select:focus,
+#reviewForm textarea:focus {
+  background-color: white;
+  outline: none;
+}
+
+#reviewForm textarea {
+  resize: vertical;
+  min-height: 15vh;
+}
+
+#reviewForm button {
+  background-color: #040653;
+  color: white;
+  font-weight: 600;
+  padding: 1.5vh 3vw;
+  border: none;
+  border-radius: 1vh;
+  font-size: 1.8vh;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#reviewForm button:hover {
+  background-color: #040653;
+}
+
+/* Individual reviews */
+#reviewsList > div {
+  background: #fff;
+  border-radius: 1vh;
+  padding: 2vh 2vw;
+  margin-bottom: 2vh;
+  box-shadow: 0 0.4vh 1.2vh rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+#reviewsList strong {
+  font-size: 2vh;
+  color: #1e90ff;
+}
+
+#reviewsList p {
+  margin: 1vh 0 0;
+  line-height: 1.5;
+  font-size: 1.6vh;
+  color: #444;
+}
+
+/* Delete button */
+.deleteReviewBtn {
+  position: absolute;
+  top: 1.5vh;
+  right: 2vw;
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  padding: 1vh 2vw;
+  border-radius: 1vh;
+  font-size: 1.4vh;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.deleteReviewBtn:hover {
+  background-color: #d93b3b;
+}
+main {
+  max-width: 90vw;
+  margin: 5vh auto;
+  padding: 3vh 5vw;
+  background-color: #fff;
+  border-radius: 1.5vh;
+  box-shadow: 0 0.5vh 2vh rgba(0, 0, 0, 0.1);
+}
 

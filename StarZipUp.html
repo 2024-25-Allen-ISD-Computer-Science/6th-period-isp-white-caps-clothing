@@ -185,7 +185,7 @@
       Acid Washed Sweatpants
     </div>
     <div>
-      <p style="font-family: 'Major Mono Display', serif; font-weight: bolder;font-size: medium; color: black;">$21.00</p>
+      <p style="font-family: 'Major Mono Display', serif; font-weight: bolder;font-size: medium; color: black;">$24.50</p>
    
     </div>
   
@@ -193,7 +193,7 @@
 
 <div class="hat-item">
   <a href="WhiteCapsShorts.html">
-    <img src="White Caps Images/White Caps Clothes/White Caps Embroidered Shorts.png" alt="Washed Sweatpants">
+    <img src="White Caps Images/White Caps Clothes/Brown White Caps Embroidered Shorts.jpg" alt="Washed Sweatpants">
     
   </a>
   
@@ -201,7 +201,7 @@
     W/C Shorts
   </div>
   <div>
-    <p style="font-family: 'Major Mono Display', serif; font-weight: bolder;font-size: medium; color: black;">$24.00</p>
+    <p style="font-family: 'Major Mono Display', serif; font-weight: bolder;font-size: medium; color: black;">$24.50</p>
 
   </div>
 
@@ -210,7 +210,7 @@
 
 <div class="hat-item">
   <a href="W_C-Cap.html">
-    <img src="White Caps Images/White Caps Clothes/W_C Cap.png" alt="Washed Sweatpants">
+    <img src="White Caps Images/White Caps Clothes/W_C Cap.jpg" alt="Cap">
     
   </a>
   
@@ -224,6 +224,34 @@
 
 </div>
 </div>
+
+<main>
+  <!-- Recently Viewed -->
+
+
+<!-- Reviews -->
+<section id="reviewsSection">
+  <h2>Customer Reviews</h2>
+
+  <form id="reviewForm">
+    <input type="text" id="reviewerName" placeholder="Your name" required>
+    <select id="reviewRating" required>
+  <option value="">Rating</option>
+  <option value="1">★☆☆☆☆</option>
+  <option value="2">★★☆☆☆</option>
+  <option value="3">★★★☆☆</option>
+  <option value="4">★★★★☆</option>
+  <option value="5">★★★★★</option>
+</select>
+
+    
+    <textarea id="reviewComment" placeholder="Write your review here" required></textarea>
+    <button type="submit">Submit Review</button>
+  </form>
+
+  <div id="reviewsList"></div>
+</section>
+</main>
   
   <script>
     // Handle size selection
@@ -250,6 +278,80 @@
       localStorage.setItem('shoppingCart', JSON.stringify(cart));
       alert(`${item} (Size: ${selectedSize}) added to cart.`);
     }
+
+          const PRODUCT_ID = "whitecaps-starzipup"; // Unique ID for  reviews
+
+    // --- Reviews System ---
+    const reviewForm = document.getElementById('reviewForm');
+    const reviewsList = document.getElementById('reviewsList');
+
+    function loadReviews() {
+      const allReviews = JSON.parse(localStorage.getItem('reviews')) || {};
+      const productReviews = allReviews[PRODUCT_ID] || [];
+
+      reviewsList.innerHTML = "";
+      if (productReviews.length === 0) {
+        reviewsList.innerHTML = "<p>No reviews yet. Be the first to review!</p>";
+        return;
+      }
+
+      productReviews.forEach((review, idx) => {
+        const div = document.createElement('div');
+        div.style.border = "1px solid #ccc";
+        div.style.padding = "10px";
+        div.style.marginBottom = "10px";
+
+        div.innerHTML = `
+          <strong>${review.name}</strong> — Rating: ${'⭐️'.repeat(review.rating)}<br>
+          <p>${review.comment}</p>
+          <button class="deleteReviewBtn" data-idx="${idx}">Delete Review</button>
+        `;
+        reviewsList.appendChild(div);
+      });
+
+      document.querySelectorAll('.deleteReviewBtn').forEach(button => {
+        button.addEventListener('click', () => {
+          const adminPass = prompt("Enter admin password to delete review:");
+          if (adminPass === "WhiteCaps008") {
+            deleteReview(button.dataset.idx);
+          } else {
+            alert("Incorrect password!");
+          }
+        });
+      });
+    }
+
+    function deleteReview(index) {
+      const allReviews = JSON.parse(localStorage.getItem('reviews')) || {};
+      const productReviews = allReviews[PRODUCT_ID] || [];
+      productReviews.splice(index, 1);
+      allReviews[PRODUCT_ID] = productReviews;
+      localStorage.setItem('reviews', JSON.stringify(allReviews));
+      loadReviews();
+    }
+
+    reviewForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('reviewerName').value.trim();
+      const rating = parseInt(document.getElementById('reviewRating').value);
+      const comment = document.getElementById('reviewComment').value.trim();
+
+      if (!name || !rating || !comment) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      const newReview = { name, rating, comment };
+      let allReviews = JSON.parse(localStorage.getItem('reviews')) || {};
+      if (!allReviews[PRODUCT_ID]) allReviews[PRODUCT_ID] = [];
+      allReviews[PRODUCT_ID].push(newReview);
+      localStorage.setItem('reviews', JSON.stringify(allReviews));
+
+      reviewForm.reset();
+      loadReviews();
+    });
+
+    loadReviews();
   </script>
 
   <footer>
