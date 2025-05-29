@@ -134,7 +134,26 @@ function getPrices() {
 }
 
 
+ // Apply fade-in when page loads
+    document.body.classList.add('fade-in');
 
+    // Attach to all internal links
+    document.querySelectorAll('a[href]').forEach(link => {
+        const url = new URL(link.href);
+        const isSameOrigin = url.origin === window.location.origin;
+
+        if (isSameOrigin && !url.hash && !link.target) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.body.classList.remove('fade-in');
+                document.body.classList.add('fade-out');
+
+                setTimeout(() => {
+                    window.location.href = link.href;
+                }, 300); // matches CSS transition time
+            });
+        }
+    });
 
 
 

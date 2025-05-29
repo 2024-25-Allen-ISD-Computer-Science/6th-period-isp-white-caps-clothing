@@ -192,13 +192,27 @@
             document.getElementById('total-price').textContent = `Total Price: $${totalPrice.toFixed(2)}`;
         }
 
-        // Clear cart
-        function clearCart() {
-            localStorage.removeItem('shoppingCart');
-            displayOrder();
-            displayTotalPrice();
-            alert("Cart has been cleared!");
-        }
+        
+function clearCart() {
+    const itemsContainer = document.getElementById('items');
+    const items = itemsContainer.querySelectorAll('.cart-item');
+
+    // Apply fade+scale animation to each cart item
+    items.forEach(item => {
+        item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        item.style.opacity = '0';
+        item.style.transform = 'scale(0.8)';
+    });
+
+    // Wait for animation to finish, then clear cart
+    setTimeout(() => {
+        localStorage.removeItem('shoppingCart');
+        displayOrder();
+        displayTotalPrice();
+        alert("Cart has been cleared!");
+    }, 300);
+}
+
 
         // Submit order and send data to Google Sheets
      document.getElementById('orderForm').addEventListener('submit', function(event) {
