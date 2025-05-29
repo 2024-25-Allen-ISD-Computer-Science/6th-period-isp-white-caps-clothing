@@ -1200,6 +1200,7 @@ span.price {
 .hat-item {
   flex: 1 1 calc(25vw - 20px); /* Four items per row with gap adjustment */
   max-width: 25vw;
+  min-width: 15vw;
   text-align: left;
   background: #fff;
   border: 1% solid #ddd;
