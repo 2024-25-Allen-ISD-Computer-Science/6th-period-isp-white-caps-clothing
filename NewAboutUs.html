@@ -146,6 +146,18 @@ The deeper I got into fashion, the more I learned about the industry’s dark si
   
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+  document.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+    gsap.to("body", {
+      opacity: 0,
+      duration: 0.5,
+      onComplete: () => window.location = link.href
+    });
+  });
+});
+</script>
 
   
   <script>

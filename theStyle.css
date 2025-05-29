@@ -606,6 +606,11 @@ span.price {
   margin-right: 15%;
 }
 
+.cta:hover {
+  transform: scale(1.05);
+  transition: 0.2s ease-in-out;
+}
+
 
 .video-size {
   width: 100%;
