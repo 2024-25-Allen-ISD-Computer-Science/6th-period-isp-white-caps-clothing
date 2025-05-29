@@ -124,7 +124,13 @@ The deeper I got into fashion, the more I learned about the industry’s dark si
   <h2 class="story-title fade-in">Terms</h2>
   <br>
   <br>
-<p class="aboutparagraph" style="font-size: 1.5vw; line-height: 1.5; max-width: 90vw; margin: 0 auto; text-align: left;">
+<p  class="story-title fade-in" style="font-size: 1.5vw; line-height: 1.5; max-width: 90vw; margin: 0 auto; text-align: left; font-family: 'DM Sans', serif;
+  font-weight: 500;
+  font-style: normal;
+
+  text-align: left;
+  margin-left: 15%;
+  margin-right: 15%;">
   <strong>All sales are pre-order</strong> and shipping typically takes 2–4 weeks.<br>
   <strong>All sales are final;</strong> we do not offer refunds or exchanges.<br>
   By placing an order, you agree to the estimated shipping times and understand that no chargebacks are allowed.<br>
@@ -139,19 +145,27 @@ The deeper I got into fashion, the more I learned about the industry’s dark si
 
   
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
   
   <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      gsap.utils.toArray('.fade-in').forEach((el, i) => {
-        gsap.to(el, {
-          opacity: 1,
-          y: -10,
-          duration: 1,
-          delay: i * 0.2,
-          ease: 'power2.out'
-        });
-      });
+    gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray('.fade-in').forEach((el) => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+      }
     });
+});
   </script>
 </body>
  <footer>
