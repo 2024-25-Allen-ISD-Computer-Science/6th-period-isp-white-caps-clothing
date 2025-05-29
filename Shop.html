@@ -16,7 +16,7 @@
   </padding>
   <header>
     <a href="Home.html" class="homebutton">
-      <img class="homelogo" src="White Caps Images/WhiteCapsCircleLogo.png" alt="logo" height="80px" width="80px">
+      <img class="float" src="White Caps Images/WhiteCapsCircleLogo.png" alt="logo" height="80px" width="80px">
     </a>
     <nav class="navbar">
       <ul class="nav_links">
@@ -206,9 +206,17 @@
   
 
  
+<script>
+  document.addEventListener('mousemove', e => {
+  const cursor = document.getElementById('cursor');
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
 
+</script>
 
   <body> 
+    <div id="cursor"></div>
 
     <center>
   <div class="shop-description" >

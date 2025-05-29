@@ -59,6 +59,15 @@ body, html {
   100% { transform: translateX(-25%); }
 }
 
+.float {
+  animation: float 4s ease-in-out infinite;
+  z-index: 4;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
 
 
 header{
@@ -603,6 +612,19 @@ span.price {
   }
 }
 
+#cursor {
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out;
+  z-index: 9999;
+}
+
+
 .AboutUsPage {
   position: relative;
 }
@@ -616,6 +638,7 @@ span.price {
   font-size: x-large;
   padding-top: 10px;
   padding-bottom: 4px;
+  z-index: 1;
 }
 
 
@@ -1378,6 +1401,15 @@ button {
 button:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.button:hover {
+  animation: flicker 0.4s linear;
+}
+
+@keyframes button {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
 @keyframes cartBounce {
