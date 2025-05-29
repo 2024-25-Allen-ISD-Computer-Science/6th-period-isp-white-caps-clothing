@@ -33,8 +33,8 @@
           <img src="White Caps Images/phone.png" alt="phone" height="35px" width="35px">
         </a>
       </li>
-      <li>
-        <a href="ShoppingCart.html" class="cta">
+       <li>
+        <a href="ShoppingCart.html" class="cta" id="cartIcon">
           <img src="White Caps Images/cart.png" alt="cart" height="35px" width="35px">
         </a>
       </li>
@@ -318,7 +318,7 @@
       });
     });
 
-    function addToCart(item, price) {
+   function addToCart(item, price) {
       if (!selectedSize || !selectedColor) {
         alert("Please select both a size and color before adding to the cart.");
         return;
@@ -328,9 +328,26 @@
       const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
       cart.push({ item: coloredItem, price, size: selectedSize, color: selectedColor });
       localStorage.setItem('shoppingCart', JSON.stringify(cart));
-      alert(`${coloredItem} (Size: ${selectedSize}) added to cart.`);
-    }
+      
+    
 
+
+  // Trigger cart animation
+  const cartIcon = document.getElementById("cartIcon");
+  cartIcon.classList.remove("animate"); // Reset if already animated
+  void cartIcon.offsetWidth; // Force reflow to restart animation
+  cartIcon.classList.add("animate");
+
+  showToast(`${item} (Size: ${selectedSize}) added to cart.`);
+}
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = "toast show";
+  setTimeout(() => {
+    toast.className = toast.className.replace("show", "");
+  }, 3000); // Hide after 3 seconds
+}
     function openSearch() {
       document.getElementById('searchOverlay').style.display = 'block';
     }
@@ -443,6 +460,7 @@
       </div>
     </div>
   </footer>
+  <div id="toast" class="toast">Item added to cart.</div>
 </body>
 
 </html>

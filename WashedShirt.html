@@ -31,7 +31,7 @@
         </a>
       </li>
       <li>
-        <a href="ShoppingCart.html" class="cta">
+        <a href="ShoppingCart.html" class="cta" id="cartIcon">
           <img src="White Caps Images/cart.png" alt="cart" height="35px" width="35px">
         </a>
       </li>
@@ -282,16 +282,31 @@
 
     // Function to add to cart
     function addToCart(item, price) {
-      if (!selectedSize) {
-        alert("Please select a size before adding to the cart.");
-        return; // Don't proceed if no size is selected
-      }
-      // Store item, price, and selected size in local storage or cart
-      const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-      cart.push({ item, price, size: selectedSize });
-      localStorage.setItem('shoppingCart', JSON.stringify(cart));
-      alert(`${item} (Size: ${selectedSize}) added to cart.`);
-    }
+  if (!selectedSize) {
+    alert("Please select a size before adding to the cart.");
+    return;
+  }
+
+  const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+  cart.push({ item, price, size: selectedSize });
+  localStorage.setItem('shoppingCart', JSON.stringify(cart));
+
+  // Trigger cart animation
+  const cartIcon = document.getElementById("cartIcon");
+  cartIcon.classList.remove("animate"); // Reset if already animated
+  void cartIcon.offsetWidth; // Force reflow to restart animation
+  cartIcon.classList.add("animate");
+
+  showToast(`${item} (Size: ${selectedSize}) added to cart.`);
+}
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = "toast show";
+  setTimeout(() => {
+    toast.className = toast.className.replace("show", "");
+  }, 3000); // Hide after 3 seconds
+}
 
 
      const PRODUCT_ID = "whitecaps-WashedTee"; // Unique ID for  reviews
@@ -394,6 +409,7 @@
       </div>
     </div>
   </footer>
+   <div id="toast" class="toast">Item added to cart.</div>
 </body>
 
 </html>
