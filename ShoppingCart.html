@@ -136,7 +136,7 @@
                         <br><br>
 
                         <button type="button" onclick="clearCart()">Clear Cart</button>
-                        <button type="submit">Submit Order</button>
+                        <button type="submit" id="submitBtn">Submit Order</button>
                     </form>
                 </center>
             </div>
@@ -152,32 +152,32 @@
     <script>
         // Display items in the cart
         function displayOrder() {
-            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-            const itemsContainer = document.getElementById('items');
+    const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+    const itemsContainer = document.getElementById('items');
 
-            itemsContainer.innerHTML = ""; // Clear previous content
+    itemsContainer.innerHTML = ""; // Clear previous content
 
-            if (cart.length === 0) {
-                itemsContainer.innerHTML = "<p>No items in cart.</p>";
-            } else {
-                cart.forEach(item => {
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('cart-item');
+    if (cart.length === 0) {
+        itemsContainer.innerHTML = "<p>No items in cart.</p>";
+    } else {
+        cart.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('cart-item');
 
-                    const itemImage = document.createElement('img');
-                    itemImage.src = ("White Caps Images/White Caps Clothes/" + item.item + ".jpg");
-                    
-                    itemImage.alt = item.item;
+            const itemImage = document.createElement('img');
+            itemImage.src = "White Caps Images/White Caps Clothes/" + item.item + ".jpg";
+            itemImage.alt = item.item;
 
-                    const itemDetails = document.createElement('p');
-                    itemDetails.textContent = `${item.item} - Size: ${item.size} - $${item.price.toFixed(2)}`;
+            const itemDetails = document.createElement('p');
+            itemDetails.textContent = ` ${item.item} - Size: ${item.size} - $${item.price.toFixed(2)}`;
 
-                    itemElement.appendChild(itemImage);
-                    itemElement.appendChild(itemDetails);
-                    itemsContainer.appendChild(itemElement);
-                });
-            }
-        }
+            itemElement.appendChild(itemImage);
+            itemElement.appendChild(itemDetails);
+            itemsContainer.appendChild(itemElement);
+        });
+    }
+}
+
 
         // Display total price
         function displayTotalPrice() {
@@ -195,45 +195,52 @@
         }
 
         // Submit order and send data to Google Sheets
-        document.getElementById('orderForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+     document.getElementById('orderForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-            const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-            const formData = {
-                name: document.getElementById('name').value,
-                address: document.getElementById('address').value,
-                phonenumber: document.getElementById('phonenumber').value,
-                items: cart.map(item => `${item.item} - $${item.price.toFixed(2)}`).join(', '),
-                totalPrice: document.getElementById('total-price').textContent,
-                orderDate: new Date().toLocaleString() // Add the order date
-            };
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true; // disable immediately
 
-            // Store the order in localStorage
-            let orders = JSON.parse(localStorage.getItem('orders')) || [];
-            orders.push(formData);
-            localStorage.setItem('orders', JSON.stringify(orders));
+    const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+    const formData = {
+        name: document.getElementById('name').value,
+        address: document.getElementById('address').value,
+        phonenumber: document.getElementById('phonenumber').value,
+        items: cart.map(item => ` ${item.item} - Size: ${item.size} - $${item.price.toFixed(2)}`).join(', '),
+        totalPrice: document.getElementById('total-price').textContent,
+        orderDate: new Date().toLocaleString()
+    };
 
-            fetch('https://script.google.com/macros/s/AKfycbz3GMNqHjvM2dwXj_be4zXKKdKkuNZbUylftrgDF_NJW729KtsIJ3Mti-duimxuWpTm/exec', {
-                method: 'POST',
-                body: JSON.stringify(formData),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                mode: 'no-cors' 
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Order submitted successfully!');
-                document.getElementById('orderForm').reset();
-                localStorage.removeItem('shoppingCart');
-                displayOrder();
-                displayTotalPrice();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert("Error submitting order.");
-            });
-        });
+    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+    orders.push(formData);
+    localStorage.setItem('orders', JSON.stringify(orders));
+
+    fetch('https://script.google.com/macros/s/AKfycbz3GMNqHjvM2dwXj_be4zXKKdKkuNZbUylftrgDF_NJW729KtsIJ3Mti-duimxuWpTm/exec', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode: 'no-cors'
+    })
+    .then(() => {
+        alert('Order submitted successfully!');
+        document.getElementById('orderForm').reset();
+        localStorage.removeItem('shoppingCart');
+        displayOrder();
+        displayTotalPrice();
+
+        // Re-enable button after 5 seconds cooldown
+        setTimeout(() => {
+            submitBtn.disabled = false;
+        }, 5000);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Error submitting order.");
+        submitBtn.disabled = false; // re-enable immediately on error
+    });
+});
 
         // Ensure items and total price display when the page loads
         window.onload = function() {

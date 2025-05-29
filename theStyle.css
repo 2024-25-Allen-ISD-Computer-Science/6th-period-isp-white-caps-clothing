@@ -1185,6 +1185,7 @@ span.price {
   margin-bottom: 15px;
 }
 
+
 .hat-container {
   display: flex;
   flex-wrap: wrap;
@@ -1217,12 +1218,7 @@ span.price {
   object-fit: contain;
 }
 
-.cap-label {
-  font-family: 'Antonio';
-  margin: 5% 0;
-  font-weight: bold;
-  font-size: medium;
-}
+
 
 .hat-item p {
   font-size: 14px;
@@ -1287,6 +1283,26 @@ span.price {
   justify-content: center;
   margin: 3% 0;
 }
+
+  .color-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 10px 0;
+  }
+
+  .color-swatch {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .color-swatch.selected {
+    border: 2px solid rgb(149, 230, 255);
+  }
 
 .color {
   width: 30px;

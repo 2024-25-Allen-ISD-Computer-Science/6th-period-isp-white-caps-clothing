@@ -60,19 +60,7 @@
   </ul>
   </header>
  
-  <script>
-    let currentSlide = 0;
-    
-    function moveSlide(direction) {
-      const slides = document.querySelector('.slides');
-      const images = document.querySelectorAll('.slides img');
-      const totalSlides = images.length;
-    
-      currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-      slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-    }
-    </script>
-
+ 
   
   
   
@@ -88,15 +76,14 @@
       <div class="star-item">
           <div class="product-slider">
           <div class="slides">
-            <img src="White Caps Images/White Caps Clothes/White Caps Embroidered Shorts.jpg" alt="Shorts Slide 1">
+            <img src="White Caps Images/White Caps Clothes/Light Gray White Caps Embroidered Shorts.jpg" alt="Shorts Slide 1">
             <img src="White Caps Images/Model Pics/ColinShortsExclusivePhoto.png" alt="Star Hoodie Back">
             <img src="White Caps Images/Model Pics/OutsideShortsWill.JPG" alt="Star Hoodie Closeup">
             <img src="White Caps Images/Model Pics/BrownShortsWhole.jpg" alt="Star Hoodie Closeup">
             <img src="White Caps Images/Model Pics/BrownShortsTopLeft.jpg.JPG" alt="Star Hoodie Closeup">
             <img src="White Caps Images/Model Pics/BrownShortsBottomRight.JPG" alt="Star Hoodie Closeup">
           </div>
-          <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-          <button class="next" onclick="moveSlide(1)">&#10095;</button>
+      
         </div>
 
  
@@ -114,6 +101,11 @@
               <button class="size" data-size="M">M</button>
               <button class="size" data-size="L">L</button>
               <button class="size" data-size="XL">XL</button>
+            </div>
+             <p class="item-paragraph">Select Color:</p>
+            <div class="color-options">
+              <button class="color-swatch" style="background-color: #5c5c5c;" data-color="Light Gray" title="Light Gray"></button>
+              <button class="color-swatch" style="background-color: #3f2302;" data-color="Brown" title="Brown"></button>
             </div>
             <button class="addtocart" onclick="addToCart('White Caps Embroidered Shorts', 24.50)">Add to Cart</button>
           </center>
@@ -191,33 +183,61 @@
 
     </div>
   </div>
-
-  <script>
-    // Handle size selection
-    const sizeButtons = document.querySelectorAll('.size');
+<script>
+    let currentSlide = 0;
     let selectedSize = null;
+    let selectedColor = null;
 
-    sizeButtons.forEach(button => {
+    function moveSlide(direction) {
+      const slides = document.querySelector('.slides');
+      const images = document.querySelectorAll('.slides img');
+      const totalSlides = images.length;
+      currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+      slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    document.querySelectorAll('.size').forEach(button => {
       button.addEventListener('click', () => {
-        sizeButtons.forEach(b => b.classList.remove('selected')); // Remove 'selected' class from all buttons
-        button.classList.add('selected'); // Add 'selected' class to clicked button
-        selectedSize = button.dataset.size; // Store the selected size
+        document.querySelectorAll('.size').forEach(b => b.classList.remove('selected'));
+        button.classList.add('selected');
+        selectedSize = button.dataset.size;
       });
     });
 
-    // Function to add to cart
-    function addToCart(item, price) {
-      if (!selectedSize) {
-        alert("Please select a size before adding to the cart.");
-        return; // Don't proceed if no size is selected
-      }
-      // Store item, price, and selected size in local storage or cart
-      const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-      cart.push({ item, price, size: selectedSize });
-      localStorage.setItem('shoppingCart', JSON.stringify(cart));
-      alert(`${item} (Size: ${selectedSize}) added to cart.`);
+    document.querySelectorAll('.color-swatch').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.color-swatch').forEach(b => b.classList.remove('selected'));
+        button.classList.add('selected');
+        selectedColor = button.getAttribute('data-color');
+      });
+    });
+
+   function addToCart(item, price) {
+  if (!selectedSize || !selectedColor) {
+    alert("Please select both a size and color before adding to the cart.");
+    return;
+  }
+
+  const coloredItem = `${selectedColor} ${item}`; // Add color prefix
+  const cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+  cart.push({ item: coloredItem, price, size: selectedSize, color: selectedColor });
+  localStorage.setItem('shoppingCart', JSON.stringify(cart));
+  alert(`${coloredItem} (Size: ${selectedSize}) added to cart.`);
+}
+
+    function openSearch() {
+      document.getElementById('searchOverlay').style.display = 'block';
+    }
+
+    function closeSearch() {
+      document.getElementById('searchOverlay').style.display = 'none';
+    }
+
+    function searchItems() {
+      // Add search logic here if needed
     }
   </script>
+ 
 
   <footer>
     <div class="footerContainer">
