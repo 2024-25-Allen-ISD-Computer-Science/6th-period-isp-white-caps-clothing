@@ -34,14 +34,14 @@ body, html {
   position: absolute;
   bottom: 0;
   width: 200%; /* Double width for scrolling */
-  height: 120px;
-  animation: waveScroll 12s linear infinite;
+  height: 10vh;
+  animation: waveScroll 49s linear infinite;
   opacity: 0.5;
 }
 
 .wave-front {
   animation: waveScrollFront 6s linear infinite;
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .wave-back {
