@@ -73,6 +73,7 @@ body.fade-in {
 .float {
   animation: float 4s ease-in-out infinite;
   z-index: 4;
+  padding-top: 10%;
 }
 
 @keyframes float {
@@ -649,7 +650,7 @@ span.price {
   font-size: x-large;
   padding-top: 10px;
   padding-bottom: 4px;
-  z-index: 1;
+  z-index: -1;
 }
 
 
